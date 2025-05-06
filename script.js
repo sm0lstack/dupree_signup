@@ -40,30 +40,30 @@ function getNextSaturdays(count) {
     const pretty = formatDate(date);
     const iso = isoDate(date);
     const idSuffix = iso.replace(/-/g, '');
-    const calendarLink = createGoogleCalendarLink(iso); // 👈 New
+    const calendarLink = createGoogleCalendarLink(iso);
   
     return `
       <div class="signup-row">
         <div class="date-cell">
           <div class="cal-header">
-                      <a href="${calendarLink}" target="_blank" class="calendar-icon" target="_blank" rel="noopener">
-  <img src="assets/calendar_icon.png" alt="Add to Calendar" class="calendar-img" />
-</a>
+            <a href="${calendarLink}" target="_blank" class="calendar-icon" rel="noopener">
+              <img src="assets/calendar_icon.png" alt="Add to Calendar" class="calendar-img" />
+            </a>
           </div>
-  <div class="date-content">
-    <strong class="date-text">${pretty}</strong>
-    <span class="day">Saturday</span>
-    <span class="time">9:30am – 10:30am</span>
-  </div>
+          <div class="date-content">
+            <strong class="date-text">${pretty}</strong>
+            <span class="day">Saturday</span>
+            <span class="time">9:30am – 10:30am</span>
+          </div>
         </div>
   
         <div class="slot-cell">
           <p><strong>Attendees</strong><br />
           <span class="attendee-count">0 of 10 slots filled</span></p>
   
-<form name="signup-fallback" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-<input type="hidden" name="form-name" value="signup-fallback" />
-<input type="hidden" name="class-date" value="${iso}" />
+          <form name="signup-fallback" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="signup-fallback" />
+            <input type="hidden" name="class-date" value="${iso}" />
             <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
   
             <input
@@ -84,6 +84,10 @@ function getNextSaturdays(count) {
   
             <button type="submit">Sign Up</button>
           </form>
+  
+          <div class="success-message" style="display: none;">
+            ✅ Sign-up successful! Redirecting…
+          </div>
         </div>
       </div>
     `;
@@ -99,26 +103,31 @@ function getNextSaturdays(count) {
 
   document.addEventListener("DOMContentLoaded", () => {
     const forms = document.querySelectorAll('form[data-netlify="true"]');
-  
-    forms.forEach((form) => {
-      form.addEventListener("submit", function (e) {
-        e.preventDefault();
-  
-        const formData = new FormData(form);
-  
-        fetch("/", {
-          method: "POST",
-          body: formData,
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        })
-          .then(() => {
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+    
+      const formData = new FormData(form);
+    
+      fetch("/", {
+        method: "POST",
+        body: formData,
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      })
+        .then(() => {
+          const successMsg = form.parentElement.querySelector(".success-message");
+          if (successMsg) {
+            successMsg.style.display = "block";
+            form.style.display = "none";
+          }
+    
+          setTimeout(() => {
             window.location.href = "/thanks.html";
-          })
-          .catch((error) => {
-            alert("Something went wrong submitting the form.");
-            console.error("Form error:", error);
-          });
-      });
+          }, 1500);
+        })
+        .catch((error) => {
+          alert("Something went wrong submitting the form.");
+          console.error("Form error:", error);
+        });
     });
   });
   
