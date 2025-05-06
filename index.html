@@ -27,13 +27,12 @@
   </div>
   <script src="script.js"></script>
 
-  <form name="signup-template" netlify netlify-honeypot="bot-field" hidden>
+  <form name="signup-template" netlify netlify-honeypot="bot-field" style="display: none !important; height: 0; overflow: hidden;" aria-hidden="true">
     <input type="hidden" name="form-name" value="signup-template" />
-    <input type="hidden" name="class-date" value="2025-05-10" />
-    <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
     <input type="text" name="first-name" />
     <input type="email" name="email" />
-    <button type="submit">Submit</button>
+    <input type="hidden" name="class-date" />
+    <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
   </form>
   
   
