@@ -12,8 +12,10 @@
     <a href="/" class="back-btn">← Return to Sign-Up Page</a>
     <h1>Thanks for Signing Up!</h1>
     <p>You’re on the list! 🎉</p>
-    <a href="index.html" class="calendar-icon">
-      <img src="assets/calendar_icon.png" class="calendar-img" alt="Back to Home" />
+
+    <!-- Single valid anchor tag with tooltip -->
+    <a id="calendar-link" class="calendar-icon" target="_blank" rel="noopener" title="Add to Google Calendar">
+      <img src="assets/calendar_icon.png" class="calendar-img" alt="Add to Calendar" />
     </a>
   </div>
 
@@ -21,18 +23,32 @@
     document.addEventListener("DOMContentLoaded", () => {
       const params = new URLSearchParams(window.location.search);
       const name = params.get("name");
+      const date = params.get("date");
+
       if (name) {
         const el = document.getElementById("welcome-msg");
         el.textContent = `Welcome, ${name}!`;
         el.classList.add("visible");
-  
-        // Optional: fade out after 3 seconds
         setTimeout(() => {
           el.classList.remove("visible");
         }, 5000);
       }
+
+      if (date) {
+        const startTime = `${date}T09:30:00`;
+        const endTime = `${date}T10:30:00`;
+
+        const formatForCalendar = (d) =>
+          new Date(d).toISOString().replace(/[-:]|\.\d{3}/g, "").slice(0, 15) + "Z";
+
+        const startFormatted = formatForCalendar(startTime);
+        const endFormatted = formatForCalendar(endTime);
+
+        const calendarURL = `https://www.google.com/calendar/render?action=TEMPLATE&text=Saturday+Class&dates=${startFormatted}/${endFormatted}&details=Fitness+class+with+Dupree&location=Your+Fav+Fit+Studio`;
+
+        document.getElementById("calendar-link").href = calendarURL;
+      }
     });
   </script>
-  
 </body>
 </html>

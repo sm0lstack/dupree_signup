@@ -117,9 +117,12 @@ function getNextSaturdays(count) {
         })
         .then(() => {
           const name = form.querySelector('input[name="first-name"]').value;
+          const date = form.querySelector('input[name="class-date"]').value;
           const encodedName = encodeURIComponent(name);
-          window.location.href = `/thanks.html?name=${encodedName}`;
+          const encodedDate = encodeURIComponent(date);
+          window.location.href = `/thanks.html?name=${encodedName}&date=${encodedDate}`;
         })
+        
         
           .catch((error) => {
             alert("Something went wrong submitting the form.");
