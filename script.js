@@ -61,7 +61,7 @@ function getNextSaturdays(count) {
           <p><strong>Attendees</strong><br />
           <span class="attendee-count">0 of 10 slots filled</span></p>
   
-<form name="signup-${idSuffix}" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field">
+<form name="signup-fallback" method="POST" action="/thanks" data-netlify="true" netlify-honeypot="bot-field">
   <input type="hidden" name="form-name" value="signup-${idSuffix}" />
             <input type="hidden" name="class-date" value="${iso}" />
             <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
