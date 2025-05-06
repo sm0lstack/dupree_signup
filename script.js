@@ -61,8 +61,9 @@ function getNextSaturdays(count) {
           <p><strong>Attendees</strong><br />
           <span class="attendee-count">0 of 10 slots filled</span></p>
   
-<form name="signup-fallback" method="POST" action="thanks.html" data-netlify="true" netlify-honeypot="bot-field">
-            <input type="hidden" name="class-date" value="${iso}" />
+<form name="signup-fallback" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+<input type="hidden" name="form-name" value="signup-fallback" />
+<input type="hidden" name="class-date" value="${iso}" />
             <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
   
             <input
@@ -88,9 +89,36 @@ function getNextSaturdays(count) {
     `;
   }
   
+
   
   const container = document.getElementById("class-container");
   getNextSaturdays(3).forEach((date, index) => {
     container.innerHTML += createClassBlock(date, index);
+  });
+  
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const forms = document.querySelectorAll('form[data-netlify="true"]');
+  
+    forms.forEach((form) => {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+  
+        const formData = new FormData(form);
+  
+        fetch("/", {
+          method: "POST",
+          body: formData,
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        })
+          .then(() => {
+            window.location.href = "/thanks.html";
+          })
+          .catch((error) => {
+            alert("Something went wrong submitting the form.");
+            console.error("Form error:", error);
+          });
+      });
+    });
   });
   
