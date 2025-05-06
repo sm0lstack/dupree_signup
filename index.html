@@ -35,6 +35,15 @@
     <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
   </form>
   
+  <form name="signup-fallback" data-netlify="true" netlify-honeypot="bot-field" style="position: absolute; left: -9999px; height: 0; overflow: hidden;">
+    <input type="hidden" name="form-name" value="signup-fallback" />
+    <input type="text" name="first-name" />
+    <input type="email" name="email" />
+    <input type="hidden" name="class-date" />
+    <p class="hidden"><label>Don’t fill this out: <input name="bot-field" /></label></p>
+    <button type="submit">Submit</button>
+  </form>
+  
   
 </body>
 </html>
