@@ -54,7 +54,7 @@
   
   .back-btn {
     display: inline-block;
-    margin-top: 2rem;
+    margin-top: 1rem;
     padding: 0.75rem 1.5rem;
     background: #a47fb8;
     color: #fff;
@@ -71,7 +71,7 @@
     font-weight: bold;
     color: var(--accent-color, #7b4bb7); /* adjust for brand */
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
   
   .welcome-flash.visible {
