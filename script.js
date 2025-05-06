@@ -115,9 +115,12 @@ function getNextSaturdays(count) {
           body: formData,
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
-          .then(() => {
-            window.location.href = "/thanks.html";
-          })
+        .then(() => {
+          const name = form.querySelector('input[name="first-name"]').value;
+          const encodedName = encodeURIComponent(name);
+          window.location.href = `/thanks.html?name=${encodedName}`;
+        })
+        
           .catch((error) => {
             alert("Something went wrong submitting the form.");
             console.error("Form error:", error);

@@ -6,15 +6,33 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <h2 id="welcome-msg" class="welcome-flash"></h2>
+
   <div class="page-wrapper" style="text-align: center; margin-top: 4rem;">
+    <a href="/" class="back-btn">← Return to Sign-Up Page</a>
     <h1>Thanks for Signing Up!</h1>
     <p>You’re on the list! 🎉</p>
     <a href="index.html" class="calendar-icon">
       <img src="assets/calendar_icon.png" class="calendar-img" alt="Back to Home" />
     </a>
-
-    <a href="/" class="back-btn">← Return to Sign-Up Page</a>
-
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const params = new URLSearchParams(window.location.search);
+      const name = params.get("name");
+      if (name) {
+        const el = document.getElementById("welcome-msg");
+        el.textContent = `Welcome, ${name}!`;
+        el.classList.add("visible");
+  
+        // Optional: fade out after 3 seconds
+        setTimeout(() => {
+          el.classList.remove("visible");
+        }, 3000);
+      }
+    });
+  </script>
+  
 </body>
 </html>
