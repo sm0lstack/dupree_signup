@@ -1,0 +1,324 @@
+:root {
+    --peach: #ffd1ba;
+    --lavender: #e6ddff;
+    --accent: #ff8c66;
+    --text: #3a2c2c;
+    --bg: linear-gradient(180deg, #fffdfc, #ede8ff);
+    --table-border: #c8abe2;
+    --font-main: 'Helvetica Neue', sans-serif;
+    --date-text: #b9a7c9;
+    --time-text: #b66519;
+  }
+  
+  @font-face {
+    font-family: 'FredokaOne';
+    src: url('assets/FredokaOne.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Fredoka Dingbats';
+    src: url('assets/Fredoka dingbats.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Space Mono';
+    src: url('assets/SpaceMono-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Space Mono';
+    src: url('assets/SpaceMono-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: bold;
+  }
+  
+  @font-face {
+    font-family: 'Space Mono';
+    src: url('assets/SpaceMono-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  @font-face {
+    font-family: 'Space Mono BoldItalic';
+    src: url('assets/SpaceMono-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+  }
+  
+
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: var(--font-main);
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    background-attachment: fixed;
+    background-size: cover;
+    color: var(--text);
+    font-size: 16px;
+  }
+  
+h1 {
+    font-size: 2.15rem;
+    font-family: 'FredokaOne', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.15rem;
+}
+
+.subtext {
+    font-size: 1.15rem;
+    color: #666;
+  }
+  
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .header-flex {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center; /* centers on small screens */
+  }
+  
+  .header-text {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .logo {
+    max-width: 240px;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .page-wrapper {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+  }
+  
+  .signup-table {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .signup-row {
+    display: flex;
+    flex-direction: row;
+    border: 2px solid var(--table-border);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    background: white;
+    flex-wrap: nowrap;
+  }
+
+  .date-cell {
+    width: 222px;
+    background-color: var(--lavender);
+    padding: 1rem;
+    border-right: 2px solid var(--table-border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* center .date-content */
+    position: relative;
+  }
+  
+  .cal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    flex-direction: column;
+    margin-top: -2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .calendar-icon {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .calendar-img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    display: block;
+    position: relative;
+    z-index: 5; /* bring image above sparkles */
+  }
+  
+  /* Top-right sparkle */
+  .calendar-icon::before {
+    content: "✨";
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 1.1rem;
+    opacity: 0;
+    transform: scale(0.6);
+    filter: drop-shadow(0 0 1px #000);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    z-index: 1; /* behind image */
+  }
+  
+  /* Bottom-left sparkle */
+  .calendar-icon::after {
+    content: "✨";
+    position: absolute;
+    bottom: -4px;
+    left: -4px;
+    font-size: 0.85rem;
+    opacity: 0;
+    transform: scale(0.6);
+    filter: drop-shadow(0 0 1px #000);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    z-index: 1; /* behind image */
+  }
+  
+  .calendar-icon:hover::before {
+    opacity: 1;
+    transform: scale(1.2) rotate(20deg);
+  }
+  
+  .calendar-icon:hover::after {
+    opacity: 1;
+    transform: scale(1.2) rotate(-20deg);
+  }
+  
+  
+  
+  .date-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .date-cell .date-text {
+    font-size: 1.5rem;
+    color: var(--text);
+    font-family: 'FredokaOne', sans-serif;
+  }
+  
+  .date-cell .day {
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    color: var(--date-text);
+    margin-top: -0.25rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .date-cell .time {
+    font-style: italic;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    color: var(--time-text);
+  }
+  
+  
+  .slot-cell {
+    width: calc(100% - 160px);
+    background-color: var(--peach);
+    padding: 1rem;
+  }
+  
+  .attendee-count {
+    margin-bottom: 1rem;
+    display: block;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+  
+  form input {
+    padding: 0.4rem 0.6rem;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    font-size: 1rem;
+    width: 100%;
+  }
+  
+  form input::placeholder {
+    color: #7a6b6b;
+    opacity: 0.8;
+  }
+  
+  form input:focus {
+    outline: none;
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 3px var(--accent);
+  }
+  
+  form button {
+    background-color: var(--accent);
+    color: white;
+    font-size: 1rem;
+    padding: 0.6rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    width: 100%;
+  }
+  
+  form button:hover {
+    background-color: #ff734a;
+  }
+
+  form[name="signup-template"] {
+    display: none !important;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  
+  
+  .hidden {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    .signup-row {
+      flex-direction: column;
+    }
+  
+    .date-cell {
+      border-right: none;
+      border-bottom: 2px solid var(--table-border);
+      width: 100%;
+    }
+  
+    .slot-cell {
+      width: 100%;
+    }
+  }
+  
