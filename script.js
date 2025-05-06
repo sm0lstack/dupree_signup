@@ -103,31 +103,26 @@ function getNextSaturdays(count) {
 
   document.addEventListener("DOMContentLoaded", () => {
     const forms = document.querySelectorAll('form[data-netlify="true"]');
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-    
-      const formData = new FormData(form);
-    
-      fetch("/", {
-        method: "POST",
-        body: formData,
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      })
-        .then(() => {
-          const successMsg = form.parentElement.querySelector(".success-message");
-          if (successMsg) {
-            successMsg.style.display = "block";
-            form.style.display = "none";
-          }
-    
-          setTimeout(() => {
-            window.location.href = "/thanks.html";
-          }, 1500);
+  
+    forms.forEach((form) => {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+  
+        const formData = new FormData(form);
+  
+        fetch("/", {
+          method: "POST",
+          body: formData,
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
         })
-        .catch((error) => {
-          alert("Something went wrong submitting the form.");
-          console.error("Form error:", error);
-        });
+          .then(() => {
+            window.location.href = "/thanks.html";
+          })
+          .catch((error) => {
+            alert("Something went wrong submitting the form.");
+            console.error("Form error:", error);
+          });
+      });
     });
   });
   
