@@ -333,19 +333,78 @@ header {
     display: none;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 475px) {
     .signup-row {
       flex-direction: column;
+      margin-bottom: 1rem;
     }
   
     .date-cell {
+      position: relative; /* allow absolute children */
       border-right: none;
       border-bottom: 2px solid var(--table-border);
       width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
     }
+  
+    .calendar-icon {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      z-index: 2;
+    }
+  
+    .calendar-img {
+      width: 44px;
+      height: 44px;
+    }
+  
+    .date-content {
+      margin-top: 1rem;
+      text-align: center;
+      padding: 0.25rem 0;
+    }
+
+    .date-content .day,
+.date-content .time {
+  display: block;
+  line-height: 0.5;
+}
+
+.date-content strong.date-text {
+  display: block;
+  margin-bottom: 0.2rem;
+}
+
   
     .slot-cell {
       width: 100%;
+    }
+  
+    .logo {
+      max-width: 150px;
+      height: auto;
+      margin-bottom: -1rem;
+    }
+  
+    .header-flex {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .header-text h1 {
+      font-size: 1.5rem;
+      margin-top: 0.5rem;
+    }
+  
+    .header-text .subtext {
+      font-size: 1.2rem;
+      max-width: 90%;
+      margin-left: 1rem;
     }
   }
   
