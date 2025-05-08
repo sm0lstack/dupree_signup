@@ -66,7 +66,7 @@ function createClassBlock(date, iso, idSuffix, calendarLink, pretty) {
       <div class="slot-cell">
         <p><strong>Attendees</strong><br />
         <span class="attendee-count" id="count-${idSuffix}">Loading...</span>
-        <ul class="attendee-names" id="names-${idSuffix}"></ul>
+<span class="attendee-names-inline" id="names-${idSuffix}"></span>
 
         <form name="signup-fallback" method="POST" data-netlify="true" netlify-honeypot="bot-field">
           <input type="hidden" name="form-name" value="signup-fallback" />
@@ -100,8 +100,11 @@ getNextSaturdays(3).forEach((date) => {
 
       if (countEl) countEl.textContent = `${attendees.length} of 10 slots filled`;
       if (namesEl && attendees.length) {
-        namesEl.innerHTML = attendees.map(name => `<li>${name}</li>`).join('');
+        namesEl.textContent = attendees.join(', ');
+        namesEl.classList.add('visible');
       }
+      
+      
     });
   }, 0);
 });
