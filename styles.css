@@ -278,6 +278,27 @@ header {
     color: var(--text);
   }
   
+
+  .attendee-names {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 0.3rem;
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+  
+  .attendee-names li {
+    padding-left: 1rem;
+    position: relative;
+  }
+  
+  .attendee-names li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  
   form {
     display: flex;
     flex-direction: column;

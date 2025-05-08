@@ -36,6 +36,18 @@ function getNextSaturdays(count) {
     return `https://www.google.com/calendar/render?action=TEMPLATE&text=Saturday+Class&dates=${startFormatted}/${endFormatted}&details=Fitness+class+with+Dupree&location=Your+Fav+Fit+Studio`;
   }
   
+  async function fetchAttendees(date) {
+    try {
+      const res = await fetch(`/.netlify/functions/get-attendees?date=${date}`);
+      const data = await res.json();
+      return data.attendees || [];
+    } catch (err) {
+      console.error("Error fetching attendees:", err);
+      return [];
+    }
+  }
+  
+
   function createClassBlock(date, index) {
     const pretty = formatDate(date);
     const iso = isoDate(date);
@@ -59,8 +71,10 @@ function getNextSaturdays(count) {
   
         <div class="slot-cell">
           <p><strong>Attendees</strong><br />
-          <span class="attendee-count">0 of 10 slots filled</span></p>
+<span class="attendee-count" id="count-${idSuffix}">Loading...</span>
+<ul class="attendee-names" id="names-${idSuffix}"></ul>
   
+
           <form name="signup-fallback" method="POST" data-netlify="true" netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="signup-fallback" />
             <input type="hidden" name="class-date" value="${iso}" />
@@ -97,8 +111,17 @@ function getNextSaturdays(count) {
   
   const container = document.getElementById("class-container");
   getNextSaturdays(3).forEach((date, index) => {
+    const iso = isoDate(date);
+    const idSuffix = iso.replace(/-/g, '');
+  
     container.innerHTML += createClassBlock(date, index);
+  
+    fetchAttendees(iso).then((attendees) => {
+      const el = document.getElementById(`count-${idSuffix}`);
+      if (el) el.textContent = `${attendees.length} of 10 slots filled`;
+    });
   });
+  
   
 
   document.addEventListener("DOMContentLoaded", () => {
