@@ -26,8 +26,11 @@ function formatDate(date) {
 }
 
 function isoDate(date) {
-  return date.toISOString().split("T")[0];
+  const local = new Date(date);
+  local.setHours(12); // set to noon to avoid UTC shift
+  return local.toISOString().split("T")[0];
 }
+
 
 function createGoogleCalendarLink(isoDateStr) {
   const start = new Date(isoDateStr + "T09:30:00");
