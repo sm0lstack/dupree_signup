@@ -53,6 +53,13 @@ async function fetchAttendees(date) {
   }
 }
 
+function encode(data) {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+    .join("&");
+}
+
+
 function createClassBlock(date, iso, idSuffix, calendarLink, pretty) {
   return `
     <div class="signup-row">
@@ -120,13 +127,23 @@ document.addEventListener("DOMContentLoaded", () => {
   forms.forEach((form) => {
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      const formData = new FormData(form);
-
+      const name = form.querySelector('input[name="first-name"]').value;
+      const email = form.querySelector('input[name="email"]').value;
+      const date = form.querySelector('input[name="class-date"]').value;
+      
+      const data = {
+        "form-name": "signup-fallback",
+        "first-name": name,
+        email,
+        "class-date": date,
+      };
+      
       fetch("/", {
         method: "POST",
-        body: formData,
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encode(data),
       })
+      
       .then(() => {
         const name = form.querySelector('input[name="first-name"]').value;
         const date = form.querySelector('input[name="class-date"]').value;
