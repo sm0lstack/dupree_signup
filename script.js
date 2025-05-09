@@ -4,6 +4,12 @@ window.addEventListener("pageshow", (event) => {
     window.location.reload();
   }
 });
+function isLastSaturdayOfMonth(date) {
+  const test = new Date(date);
+  test.setDate(test.getDate() + 7);
+  return test.getMonth() !== date.getMonth();
+}
+
 function getNextSaturdays(count) {
   const today = new Date();
   const saturdays = [];
@@ -11,12 +17,14 @@ function getNextSaturdays(count) {
 
   while (saturdays.length < count) {
     date.setDate(date.getDate() + 1);
-    if (date.getDay() === 6) {
+    if (date.getDay() === 6 && !isLastSaturdayOfMonth(date)) {
       saturdays.push(new Date(date));
     }
   }
+
   return saturdays;
 }
+
 
 function formatDate(date) {
   const mm = String(date.getMonth() + 1).padStart(2, '0');

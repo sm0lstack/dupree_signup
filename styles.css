@@ -3,7 +3,7 @@
     --lavender: #e6ddff;
     --accent: #ff8c66;
     --text: #3a2c2c;
-    --bg: linear-gradient(180deg, #fffdfc, #ede8ff);
+    --bg: linear-gradient(180deg, #fff8f5, #dcd5f7);
     --table-border: #c8abe2;
     --font-main: 'Helvetica Neue', sans-serif;
     --date-text: #b9a7c9;
@@ -78,13 +78,14 @@
   
   .back-btn {
     display: inline-block;
-    margin-top: 1rem;
     padding: 0.75rem 1.5rem;
     background: #a47fb8;
     color: #fff;
     text-decoration: none;
     border-radius: 6px;
-    font-size: 0.75rem;
+    font-size: 1rem;
+    margin-top: 1rem;
+    z-index: 1000;
   }
   
   .welcome-flash {
@@ -112,12 +113,35 @@
     font-family: var(--font-main);
     margin: 0;
     padding: 0;
-    background: var(--bg);
-    background-attachment: fixed;
-    background-size: cover;
+  
+    background-image: var(--bg);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100% 100vh;
+    background-attachment: scroll; /* Default fallback */
+    
+    /* mobile-only fix: simulate fixed background using pseudo element */
+    position: relative;
+    overflow-x: hidden;
     color: var(--text);
     font-size: 16px;
   }
+  
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-image: var(--bg);
+    background-repeat: no-repeat;
+    background-size: 100% 100vh;
+    background-position: center top;
+    z-index: -1;
+    pointer-events: none;
+  }
+  
   
 h1 {
     font-size: 2.15rem;
@@ -371,7 +395,8 @@ header {
     display: none;
   }
 
-  @media (max-width: 475px) {
+  @media (max-width: 600px) {
+    
     .signup-row {
       flex-direction: column;
       margin-bottom: 1rem;
@@ -443,6 +468,29 @@ header {
       font-size: 1.15rem;
       max-width: 90%;
       margin-left: 1rem;
+    }
+
+  .thanks-wrapper h1 {
+    font-size: 1.75rem;
+  }
+  
+    .thanks-wrapper p {
+      font-size: 1.25rem;
+    }
+  
+    .thanks-wrapper .emoji {
+      font-size: 2rem;
+    }
+
+    .back-btn.mobile-fixed {
+      position: fixed;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      margin: 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+      background-color: #a47fb8;
+      width: 70%;
     }
   }
   
