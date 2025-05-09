@@ -1,3 +1,9 @@
+// Force reload if user returns via browser's back/forward
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) {
+    window.location.reload();
+  }
+});
 function getNextSaturdays(count) {
   const today = new Date();
   const saturdays = [];
@@ -121,13 +127,31 @@ document.addEventListener("DOMContentLoaded", () => {
         body: formData,
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
       })
-        .then(() => {
-          const name = form.querySelector('input[name="first-name"]').value;
-          const date = form.querySelector('input[name="class-date"]').value;
-          const encodedName = encodeURIComponent(name);
-          const encodedDate = encodeURIComponent(date);
-          window.location.href = `/thanks.html?name=${encodedName}&date=${encodedDate}`;
-        })
+      .then(() => {
+        const name = form.querySelector('input[name="first-name"]').value;
+        const date = form.querySelector('input[name="class-date"]').value;
+        const idSuffix = date.replace(/-/g, '');
+      
+        // Optimistically update the UI immediately
+        const namesEl = document.getElementById(`names-${idSuffix}`);
+        const countEl = document.getElementById(`count-${idSuffix}`);
+      
+        if (namesEl && countEl) {
+          const currentNames = namesEl.textContent.trim();
+          const updatedNames = currentNames ? `${currentNames}, ${name}` : name;
+          namesEl.textContent = updatedNames;
+          namesEl.classList.add("visible");
+      
+          const currentCount = parseInt(countEl.textContent) || 0;
+          const newCount = currentCount + 1;
+          countEl.textContent = `${newCount} of 10 slots filled`;
+        }
+      
+        const encodedName = encodeURIComponent(name);
+        const encodedDate = encodeURIComponent(date);
+        window.location.href = `/thanks.html?name=${encodedName}&date=${encodedDate}`;
+      })
+      
         .catch((error) => {
           alert("Something went wrong submitting the form.");
           console.error("Form error:", error);
