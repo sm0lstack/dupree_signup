@@ -52,6 +52,14 @@
     font-style: italic;
   }
   
+  .logo,
+.calendar-img,
+.calendar-icon,
+img {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
 
   .thanks-wrapper {
     text-align: center;
