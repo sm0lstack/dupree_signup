@@ -163,6 +163,16 @@ h1 {
     color: #666;
   }
   
+  .class-note {
+  color: #986443;
+  font-weight: bold;
+  font-size: 0.95em;
+  margin: 1em 0;
+  text-align: center;
+  background: #fff1dd;
+  border-radius: 6px;
+  padding: 0.5em 0.75em;
+}
 
 header {
     text-align: center;
